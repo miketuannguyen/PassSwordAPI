@@ -1,7 +1,7 @@
-import app from './app';
 import * as dotenv from 'dotenv';
-import { logger } from './utils/';
-import { MySQLDatabase } from './database';
+import app from './app';
+import { MySQLConnection } from './database';
+import { CONSTANTS, logger } from './utils';
 
 dotenv.config();
 
@@ -13,20 +13,26 @@ if (!PORT) {
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
 /**
- * Initialize database
+ * Connect to MySQL database
  */
-const initDatabase = async (): Promise<void> => {
-    const isSuccess = await MySQLDatabase.createConnection();
+const connectMySQL = async (): Promise<void> => {
+    const isSuccess = await MySQLConnection.getInstance().createConnection();
     if (!isSuccess) {
-        logger.appLogger.info('Database initialization failed.');
+        const errorMessage = 'xxxxxxxxxx Connect to MySQL database failed xxxxxxxxxx';
+        if (ENVIRONMENT === 'dev') {
+            const red = '\x1b[31m%s\x1b[31m';
+            console.log(red,errorMessage);
+        }
+
+        if (ENVIRONMENT === 'prod') {
+            logger.logError(CONSTANTS.APPLICATION_LOG_FILE_NAME, errorMessage);
+        }
         process.exit(1);
     }
 };
 
 app.listen(PORT, () => {
-    void initDatabase();
-
-    logger.initAppLogFolder();
+    void connectMySQL();
 
     if (ENVIRONMENT === 'dev') {
         const cyan = '\x1b[36m%s\x1b[0m';
@@ -34,6 +40,6 @@ app.listen(PORT, () => {
     }
 
     if (ENVIRONMENT === 'prod') {
-        logger.appLogger.info('PassSword API starts.');
+        logger.getFileLogger(CONSTANTS.APPLICATION_LOG_FILE_NAME).info('PassSword API starts.');
     }
 });

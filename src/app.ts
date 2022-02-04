@@ -2,13 +2,14 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as expressWinston from 'express-winston';
 import * as winston from 'winston';
-import { ROUTES, userRouter } from './modules';
-import { CONSTANTS, MESSAGES } from './utils';
+import { userRouter } from './modules';
+import { CONSTANTS, MESSAGES, ROUTES } from './utils';
 
 // ========== [START] Application setups [START] ==========
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(
     expressWinston.logger({
         level: 'info',
@@ -33,8 +34,7 @@ app.use(ROUTES.USER.MODULE, userRouter);
 //The final request handler to handle all requests having undefined routes
 app.use((_, res) => {
     return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.BAD_REQUEST_400).json({
-        status: false,
-        message: MESSAGES.ERROR.ERR_RESOURCE_NOT_FOUND,
+        message: MESSAGES.ERROR.RESOURCE_NOT_FOUND,
     });
 });
 
