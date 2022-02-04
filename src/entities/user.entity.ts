@@ -5,7 +5,7 @@ export default class UserEntity {
     @PrimaryColumn({ type: 'varchar', length: 20 })
         user_name: string;
 
-    @Column({ type: 'varchar', length: 64 })
+    @Column({ type: 'varchar', length: 100 })
         password: string;
 
     @Column({ type: 'varchar', length: 150 })
