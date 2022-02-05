@@ -42,7 +42,6 @@ export const isBlank = (str: string | number | null | undefined) => typeof str =
 /**
  * Generate key - value error object from Joi validation error
  * @param err - Joi validation error
- * @param data - The data that was validated
  * @returns key - value error object whose values are error messages
  */
 export const generateKeyValueError = (err: Joi.ValidationError): { [key: string]: string } => {
