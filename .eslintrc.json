@@ -6,36 +6,21 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-		"plugin:@typescript-eslint/eslint-recommended",
-		"plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module",
-		"project": "./tsconfig.json"
+        "project": "./tsconfig.json"
     },
-    "plugins": [
-        "@typescript-eslint",
-		"eslint-plugin-tsdoc"
-    ],
+    "plugins": ["@typescript-eslint", "eslint-plugin-tsdoc"],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
         "no-console": "warn",
         "no-empty-function": "off",
         "@typescript-eslint/no-empty-function": [
@@ -44,7 +29,6 @@
                 "allow": ["private-constructors"]
             }
         ],
-        // "valid-jsdoc": "error",
         "prefer-template": "error",
         "camelcase": [
             "error",
@@ -54,10 +38,10 @@
         ],
         "no-var": "error",
         "@typescript-eslint/unbound-method": [
-          "error",
-          {
-            "ignoreStatic": true
-          }
+            "error",
+            {
+                "ignoreStatic": true
+            }
         ],
         "require-jsdoc": [
             "warn",
