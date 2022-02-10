@@ -3,7 +3,7 @@ import { JwtPayload } from 'jsonwebtoken';
 import * as core from 'express-serve-static-core';
 
 export type AuthenticatedUser = {
-    user_name: string;
+    username: string;
     email: string;
 };
 

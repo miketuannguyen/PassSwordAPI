@@ -7,11 +7,11 @@ const logFileName = `${CONSTANTS.MODULE_LOG_FOLDER_NAME}/${ROUTES.USER.MODULE}.c
 
 /**
  * User login
- * @param req - user_name or email with password (md5 encoded) needed
+ * @param req - username or email with password (md5 encoded) needed
  * @param res - access token
  */
 export const login = async (req: Request<unknown, unknown, {
-    user_name_email: string,
+    username_email: string,
     password: string,
 }>, res: Response) => {
     try {
@@ -25,7 +25,7 @@ export const login = async (req: Request<unknown, unknown, {
             });
         }
 
-        const token = await userService.authenticate(body.user_name_email, body.password);
+        const token = await userService.authenticate(body.username_email, body.password);
         if (helpers.isBlank(token)) {
             return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.UNAUTHORIZED_401).json({
                 message: MESSAGES.ERROR.LOGIN_FAILED,
@@ -51,7 +51,7 @@ export const login = async (req: Request<unknown, unknown, {
  */
 export const getProfile = async (req: types.AuthenticatedRequest, res: Response) => {
     try {
-        const userName = req.payload.user_name;
+        const userName = req.payload.username;
         const user = await userService.getProfile(userName);
         if (helpers.isEmpty(user)) {
             return res.status(CONSTANTS.HTTP_STATUS_CODES.CLIENT_ERROR.BAD_REQUEST_400).json({

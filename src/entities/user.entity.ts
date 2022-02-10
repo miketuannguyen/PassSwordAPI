@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } fro
 @Entity('m_users')
 export default class UserEntity {
     @PrimaryColumn({ type: 'varchar', length: 20 })
-        user_name: string;
+        username: string;
 
     @Column({ type: 'varchar', length: 100 })
         password: string;
